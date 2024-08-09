@@ -1,5 +1,8 @@
 package poo.repositories;
 
+import poo.exceptions.ReadAccessDataException;
+import poo.exceptions.RegisterDuplicateAccessDataException;
+import poo.exceptions.WriteAccessDataException;
 import poo.models.BaseEntity;
 
 import java.util.ArrayList;
@@ -20,18 +23,27 @@ implements OrdenablePaginableCrudRepository<T> {
     }
 
     @Override
-    public T getById(Integer id) {
+    public T getById(Integer id)  throws ReadAccessDataException {
+        if (id == null || id < 0) throw new ReadAccessDataException("Id must be greater than 0 and not null");
+
+        T result = null;
         for (T entity : data) {
-            if (entity.getId() != null && entity.getId().equals(id)) return entity;
+            if (entity.getId() != null && entity.getId().equals(id)) result = entity;
         }
-        return null;
+        if(result == null) throw new ReadAccessDataException("Not found entity with id: " + id);
+        return result;
     }
 
     @Override
-    public void create(T t) { data.add(t); }
+    public void create(T t) throws WriteAccessDataException {
+        if(t == null) throw new WriteAccessDataException("Entity is null");
+        if (data.contains(t)) throw new RegisterDuplicateAccessDataException("Entity already exists");
+
+        data.add(t);
+    }
 
     @Override
-    public void update(T t) {
+    public void update(T t) throws ReadAccessDataException {
         T entity = getById(t.getId());
         if (entity != null) {
             entity = t;
@@ -39,7 +51,7 @@ implements OrdenablePaginableCrudRepository<T> {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Integer id) throws ReadAccessDataException {
         T entity = getById(id);
         if (entity != null) {
             data.remove(entity);

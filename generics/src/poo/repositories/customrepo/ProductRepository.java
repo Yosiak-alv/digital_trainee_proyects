@@ -1,5 +1,6 @@
 package poo.repositories.customrepo;
 
+import poo.exceptions.ReadAccessDataException;
 import poo.models.Client;
 import poo.models.Product;
 import poo.repositories.AbstractListRepository;
@@ -11,7 +12,7 @@ import java.util.List;
 public class ProductRepository extends AbstractListRepository<Product> {
 
     @Override
-    public void update(Product product) {
+    public void update(Product product) throws ReadAccessDataException {
         Product entity = getById(product.getId());
         if (entity != null) {
             entity.setDescription(product.getDescription());

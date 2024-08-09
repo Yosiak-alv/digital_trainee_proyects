@@ -1,3 +1,4 @@
+import poo.exceptions.AccessDataException;
 import poo.models.Client;
 import poo.models.Product;
 import poo.repositories.AbstractListRepository;
@@ -9,7 +10,7 @@ import poo.repositories.customrepo.ProductRepository;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws AccessDataException {
 
         OrdenablePaginableCrudRepository<Client> clientRepo = new ClientRepository();
 
@@ -63,7 +64,7 @@ public class Main {
         mainProducts();
     }
 
-    private static void mainProducts() {
+    private static void mainProducts() throws AccessDataException {
         OrdenablePaginableCrudRepository<Product> productRepo = new ProductRepository();
 
         productRepo.create(new Product("Laptop", 1000.0));

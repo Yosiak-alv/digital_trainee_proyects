@@ -1,5 +1,6 @@
 package poo.repositories.customrepo;
 
+import poo.exceptions.ReadAccessDataException;
 import poo.models.Client;
 import poo.repositories.AbstractListRepository;
 import poo.repositories.OrderType;
@@ -10,7 +11,7 @@ import java.util.List;
 public class ClientRepository extends AbstractListRepository<Client> {
 
     @Override
-    public void update(Client client) {
+    public void update(Client client) throws ReadAccessDataException {
         Client entity = getById(client.getId());
         if (entity != null) {
            entity.setName(client.getName());
