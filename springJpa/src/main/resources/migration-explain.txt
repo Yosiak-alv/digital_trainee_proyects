@@ -1,0 +1,6 @@
+spring.jpa.hibernate.ddl-auto
+
+create => create database schema and import data from import.sql,
+create-drop => drop and create database schema when the SessionFactory is created,
+validate => validate the database schema,
+update => update the database schema, if there is some change in the entity,
