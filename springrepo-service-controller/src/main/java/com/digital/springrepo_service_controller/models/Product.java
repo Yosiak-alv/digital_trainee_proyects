@@ -22,7 +22,7 @@ public class Product {
     private Long id;
 
     @IsRequired
-    @IsExistDb
+    //@IsExistDb
     //@IsUnique(domainClass = Product.class, fieldName = "sku", message = "the sku must be unique")
     private String sku;
 
