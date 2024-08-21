@@ -1,6 +1,6 @@
-package com.digital.springJpa.services;
+package com.digital.springrepo_service_controller.services;
 
-import com.digital.springJpa.models.Product;
+import com.digital.springrepo_service_controller.models.Product;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +12,7 @@ public interface ProductService {
 
     Product save(Product product);
 
-    Optional<Product> update(Product product);
+    Optional<Product> update(Long id, Product product);
 
     Optional<Product> delete(Long id);
 

@@ -17,16 +17,16 @@ public class Product {
 
     private String name;
 
-    private Integer stock;
+    private String description;
 
     private Double price;
 
     @Column(name = "is_active")
     private Boolean isActive;
 
-    public Product(String name, Integer stock, Double price, Boolean isActive) {
+    public Product(String name, String description, Double price, Boolean isActive) {
         this.name = name;
-        this.stock = stock;
+        this.description = description;
         this.price = price;
         this.isActive = isActive;
     }

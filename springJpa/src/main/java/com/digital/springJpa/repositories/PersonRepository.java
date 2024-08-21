@@ -112,7 +112,7 @@ public interface PersonRepository extends CrudRepository<Person, Long> {
     List<Person> findByProgrammingLanguageAndName(String programmingLanguage, String name);
 
     @Query("select p from Person p where p.id = ?1")
-    Optional<Object> oftenerPersonDataById(Long id);
+    Optional<Person> oftenerPersonDataById(Long id);
 
     @Query("select p.name, p.programmingLanguage from Person p")
     List<Object[]> oftenerPersonData();

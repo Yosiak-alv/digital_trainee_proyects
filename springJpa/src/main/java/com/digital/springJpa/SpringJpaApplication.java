@@ -4,7 +4,7 @@ import com.digital.springJpa.dto.PersonDto;
 import com.digital.springJpa.models.Person;
 import com.digital.springJpa.models.Product;
 import com.digital.springJpa.repositories.PersonRepository;
-import com.digital.springJpa.services.ProductService;
+import com.digital.springJpa.services.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -22,7 +22,7 @@ public class SpringJpaApplication implements CommandLineRunner {
 	private PersonRepository repository;
 
 	@Autowired
-	private ProductService productService;
+	private ProductServiceImpl productServiceImpl;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringJpaApplication.class, args);
@@ -31,18 +31,33 @@ public class SpringJpaApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		//list();
-		productsList();
-		activeProductsList(true);
-		activeProductsList(false);
-		findByNameLike("Smart");
-		findById(10L);
-		findByNameAndIsActive("Smartphone", true);
-		findByName("Laptop");
 
-		//others
+//		whereIn();
+//		subQueries();
+//		queriesAggregations();
+//		personalizedQueriesBetween();
+//		personalizedQueriesConcatUpperAndLowerCase();
+//		personalizedQueriesDistinct();
+//		personalizedQueries2();
+//		personalizedQueries();
+
+		//create();
+		//update();
+		delete2();
+
+
+
+		//products tests
 		//createProduct(new Product("Budokai Tenkaichi 3", 100, 30.0, true));
 		//updateProduct(11L);
 		//deleteProduct(11L);
+		//		productsList();
+		//		activeProductsList(true);
+		//		activeProductsList(false);
+		//		findByNameLike("Smart");
+		//		findById(10L);
+		//		findByNameAndIsActive("Smartphone", true);
+		//		findByName("Laptop");
 	}
 
 	@Transactional(readOnly = true)
@@ -99,7 +114,7 @@ public class SpringJpaApplication implements CommandLineRunner {
 
 		System.out.println("------------- consultas  -----------");
 		Object [] resume = (Object[]) repository.getResumeAggregation();
-		System.out.println( "Min id: " + resume[0] + " Max id: " + resume[1] + " Sum id: " + resume[2] + " Avg length name: " + resume[3] + " Count id: " + resume[4]);
+		//System.out.println("Min id: " + resume[0] + "Max id: " + resume[1] + "Sum id: " + resume[2] + "Avg length name: " + resume[3] + "Count id: " + resume[4]);
 	}
 
 	@Transactional(readOnly = true)
@@ -113,8 +128,6 @@ public class SpringJpaApplication implements CommandLineRunner {
 
 		persons = repository.findAllByOrderByNameAscLastnameDesc();
 		persons.forEach(System.out::println);
-
-
 	}
 
 	@Transactional(readOnly = true)
@@ -183,10 +196,10 @@ public class SpringJpaApplication implements CommandLineRunner {
 		System.out.println("Fullname: " + fullname);
 
 		System.out.println("consulta campos personalizados por id ");
-		Optional<Object> optionalPerson = repository.oftenerPersonDataById(id);
+		Optional<Person> optionalPerson = repository.oftenerPersonDataById(id);
 		if (optionalPerson.isPresent()) {
-			Object[] person = (Object[]) optionalPerson.orElseThrow();
-			System.out.println("Id"+ person[0] + "Name: " + person[1] + "LastName "+ person[2]+  "Programming Language: " + person[3]);
+			Person person = optionalPerson.orElseThrow();
+			System.out.println("Id: "+ person.getId() + " Name: " + person.getName() + " LastName "+ person.getLastname()+  " Programming Language: " + person.getProgrammingLanguage());
 		}
 
 		System.out.println("consulta campos personalizados LISTA");
@@ -295,53 +308,53 @@ public class SpringJpaApplication implements CommandLineRunner {
 
 	private void productsList(){
 		System.out.println("Products list ALL");
-		List<Product> products = productService.findAll();
+		List<Product> products = productServiceImpl.findAll();
 		products.forEach(System.out::println);
 	}
 
 	private void activeProductsList(boolean isActive){
 		System.out.println("Products list ACTIVE: " + isActive);
-		List<Product> products = productService.findActiveProducts(isActive);
+		List<Product> products = productServiceImpl.findActiveProducts(isActive);
 		products.forEach(System.out::println);
 	}
 
 	private void findById(Long id){
 		System.out.println("Product by id: " + id);
-		Product product = productService.findById(id);
+		Product product = productServiceImpl.findById(id);
 		System.out.println(product);
 	}
 
 	private void findByName(String name){
 		System.out.println("Products by name: " + name);
-		Product product = productService.findByName(name);
+		Product product = productServiceImpl.findByName(name);
 		System.out.println(product);
 	}
 
 	private void findByNameLike(String name){
 		System.out.println("Products list by name like: " + name);
-		List<Product> products = productService.findByNameLike(name);
+		List<Product> products = productServiceImpl.findByNameLike(name);
 		products.forEach(System.out::println);
 	}
 
 	private void findByNameAndIsActive(String name, boolean isActive){
 		System.out.println("Products list by name: " + name+" and isActive: " + isActive);
-		List<Product> products = productService.findByNameAndIsActive(name, isActive);
+		List<Product> products = productServiceImpl.findByNameAndIsActive(name, isActive);
 		products.forEach(System.out::println);
 	}
 
 	private void createProduct(Product product) {
-		Product result = productService.create(product);
+		Product result = productServiceImpl.create(product);
 		System.out.println("Product created: " + result);
 	}
 	private void updateProduct(Long id) {
-		Product product = productService.findById(id);
+		Product product = productServiceImpl.findById(id);
 		product.setPrice(1500.0);
-		Product result = productService.update(product);
+		Product result = productServiceImpl.update(product);
 		System.out.println("Product updated: " + result);
 	}
 
 	private void deleteProduct(Long id) {
-		productService.delete(id);
+		productServiceImpl.delete(id);
 		System.out.println("Product deleted with id: " + id);
 	}
 }
