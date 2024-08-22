@@ -1,13 +1,12 @@
 package com.digital.spring_relationships.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "invoices")
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Invoice {
@@ -19,6 +18,7 @@ public class Invoice {
     private Double total;
 
     @ManyToOne
+    @JoinColumn(name = "client_id")
     private Client client;
 
     public Invoice(String description, Double total) {
@@ -29,10 +29,17 @@ public class Invoice {
     @Override
     public String toString() {
         return "{" +
-                "id=" + id + '\'' +
+                " id=" + id + '\'' +
                 ", description='" + description + '\'' +
                 ", total=" + total + '\'' +
-                ", client=" + client +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Invoice invoice = (Invoice) obj;
+        return id.equals(invoice.id);
     }
 }
