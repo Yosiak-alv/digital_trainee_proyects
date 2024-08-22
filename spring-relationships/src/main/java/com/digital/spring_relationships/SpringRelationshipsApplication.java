@@ -42,7 +42,8 @@ public class SpringRelationshipsApplication implements CommandLineRunner {
 		//oneToManyInvoiceBidirectionalFindById();
 		//oneToManyInvoiceBidirectional();
 		//removeInvoiceBidirectional();
-		oneToOne();
+		//oneToOne();
+		oneToOneFindById();
 	}
 
 	@Transactional
@@ -89,7 +90,6 @@ public class SpringRelationshipsApplication implements CommandLineRunner {
 			ClientDetails clientDetails = new ClientDetails(true, 100);
 			clientDetails.setClient(c);
 			clientDetailRepository.save(clientDetails);
-			System.out.println("Client: " + c);
 		});
 	}
 	@Transactional
