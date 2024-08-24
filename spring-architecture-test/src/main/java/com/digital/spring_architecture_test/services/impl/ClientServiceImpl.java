@@ -42,7 +42,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public ClientDto update(Long id, ClientRequest clientRequest) {
         ClientDto clientDto = this.findById(id);
-        Client client = this.dtoToEntity(clientDto);
+        Client client = clientDto.toEntity();
         client.setName(clientRequest.getName());
         client.setLastname(clientRequest.getLastname());
 
@@ -53,11 +53,5 @@ public class ClientServiceImpl implements ClientService {
     public void deleteById(Long id) {
         ClientDto clientDto = this.findById(id);
         this.repository.deleteById(clientDto.getId());
-    }
-
-    private Client dtoToEntity(ClientDto clientDto) {
-        Client client = new Client();
-        BeanUtils.copyProperties(clientDto, client);
-        return client;
     }
 }

@@ -18,4 +18,10 @@ public class ClientDto {
     public ClientDto(Client client) {
         BeanUtils.copyProperties(client, this);
     }
+
+    public Client toEntity() {
+        Client client = new Client();
+        BeanUtils.copyProperties(this, client);
+        return client;
+    }
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -20,6 +21,16 @@ public class Course {
 
     @ManyToMany(mappedBy = "courses")
     private Set<Student> students;
+
+    public Course(){
+        this.students = new HashSet<>();
+    }
+
+    public Course(String name, String instructor) {
+        this();
+        this.name = name;
+        this.instructor = instructor;
+    }
 
     @Override
     public String toString() {

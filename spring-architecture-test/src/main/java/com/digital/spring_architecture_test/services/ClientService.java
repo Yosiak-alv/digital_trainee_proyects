@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface ClientService {
     List<ClientDto> findAll();
     ClientDto findById(Long id);
-    ClientDto create(ClientRequest client);
-    ClientDto update(Long id, ClientRequest client);
+    ClientDto create(ClientRequest clientRequest);
+    ClientDto update(Long id, ClientRequest clientRequest);
     void deleteById(Long id);
 }
