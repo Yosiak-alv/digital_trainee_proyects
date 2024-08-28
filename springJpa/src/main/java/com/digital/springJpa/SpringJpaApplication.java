@@ -43,8 +43,7 @@ public class SpringJpaApplication implements CommandLineRunner {
 
 		//create();
 		//update();
-		delete2();
-
+		//delete2();
 
 
 		//products tests
@@ -59,8 +58,9 @@ public class SpringJpaApplication implements CommandLineRunner {
 		//		findByNameAndIsActive("Smartphone", true);
 		//		findByName("Laptop");
 	}
+}
 
-	@Transactional(readOnly = true)
+	/*@Transactional(readOnly = true)
 	public void whereIn(){
 		System.out.println("-------------------------Where in------------------");
 		List<Person> persons = repository.findAllByIds(List.of(1L, 2L, 3L));
@@ -357,4 +357,4 @@ public class SpringJpaApplication implements CommandLineRunner {
 		productServiceImpl.delete(id);
 		System.out.println("Product deleted with id: " + id);
 	}
-}
+}*/
