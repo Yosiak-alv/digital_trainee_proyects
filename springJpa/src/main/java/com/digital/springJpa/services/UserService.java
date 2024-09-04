@@ -8,5 +8,5 @@ import java.util.Optional;
 public interface UserService {
     List<User> findAll();
     User save(User user);
-    boolean findByUsername(String username);
+    boolean existsByUsername(String username);
 }

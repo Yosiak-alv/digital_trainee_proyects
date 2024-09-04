@@ -29,8 +29,9 @@ public class UserServiceImpl implements UserService {
         return (List<User>) userRepository.findAll();
     }
 
-    public boolean findByUsername(String username) {
-        return userRepository.findByUsername(username).isPresent();
+    @Override
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
     }
     @Override
     public User save(User user) {

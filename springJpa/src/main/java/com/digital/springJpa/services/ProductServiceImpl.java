@@ -31,7 +31,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Optional<Product> update(Product product) {
+    public Optional<Product> update(Long id, Product product) {
         return Optional.empty();
     }
 
